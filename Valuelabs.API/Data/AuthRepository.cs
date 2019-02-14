@@ -12,49 +12,49 @@ namespace Valuelabs.API.Data
         {
             _context = context;
         }
-        public async Task<User> Login(string username, string password)
+        public async Task<User> Login(string Username, string Password)
         {
-            var user =await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user =await _context.Users.FirstOrDefaultAsync(x => x.Username == Username);
             if(user == null)
                 return null;
-            if(!VerifyPasswordHash(password,user.PasswordHash,user.PasswordSalt));
+            if(!VerifyPasswordHash(Password,user.PasswordHash,user.PasswordSalt))
                 return null;
             
             return user;
         }
 
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        private bool VerifyPasswordHash(string Password, byte[] PasswordHash, byte[] PasswordSalt)
         {
-             using(var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+             using(var hmac = new System.Security.Cryptography.HMACSHA512(PasswordSalt))
             {
                
-              var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+              var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(Password));
               for (int i=0;i<computedHash.Length;i++)
               {
-                  if(computedHash[i]!=passwordHash[i])
+                  if(computedHash[i]!=PasswordHash[i])
                     return false;
               }
             }
             return true;
         }
 
-        public async Task<User> RegisterAsync(User user, string password)
+        public async Task<User> RegisterAsync(User user, string Password)
         {
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+            byte[] PasswordHash, PasswordSalt;
+            CreatePasswordHash(Password, out PasswordHash, out PasswordSalt);
+            user.PasswordHash = PasswordHash;
+            user.PasswordSalt = PasswordSalt;
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             return user;
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        private void CreatePasswordHash(string Password, out byte[] PasswordHash, out byte[] PasswordSalt)
         {
             using(var hmac = new System.Security.Cryptography.HMACSHA512())
             {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                PasswordSalt = hmac.Key;
+                PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(Password));
             }
         }
 

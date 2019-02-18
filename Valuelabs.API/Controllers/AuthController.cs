@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Valuelabs.API.Data;
 using Valuelabs.API.Dto;
 using Valuelabs.API.Models;
+using Valuelabs.API.Helpers;
 
 namespace Valuelabs.API.Controllers
 {   
@@ -47,6 +48,7 @@ namespace Valuelabs.API.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+          
             var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(),userForLoginDto.Password);
 
             if(userFromRepo ==null)

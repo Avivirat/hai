@@ -19,7 +19,7 @@ export class Scr1Component implements OnInit {
       console.log('Logged in success');
     },
     error => {
-      console.log('failed login');
+      console.log(error);
     }
     );
   }

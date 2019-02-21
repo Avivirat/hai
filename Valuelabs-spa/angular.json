@@ -75,7 +75,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "../Valuelabs-spa/node_modules/ngx-toastr/toastr"
+
             ],
             "assets": [
               "src/favicon.ico",

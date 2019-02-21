@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from '../_services/auth.service';
@@ -10,13 +11,13 @@ import {HttpClient} from '@angular/common/http';
 })
 export class Scr1Component implements OnInit {
   model: any = {};
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
   }
   login() {
     this.authService.login(this.model).subscribe(next => {
-      console.log('Logged in success');
+      console.log('Welcome buddy!!');
     },
     error => {
       console.log(error);
@@ -24,11 +25,10 @@ export class Scr1Component implements OnInit {
     );
   }
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !(!token);
+    return this.authService.loggedIn();
   }
   logout() {
     localStorage.removeItem('token');
-    console.log('Logged Out');
+    console.log('Adios Amigo :)');
   }
 }

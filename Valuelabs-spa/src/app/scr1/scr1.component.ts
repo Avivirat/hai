@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AuthService} from '../_services/auth.service';
 import {HttpClient} from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scr1',
@@ -11,7 +12,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class Scr1Component implements OnInit {
   model: any = {};
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, private router:Router) { }
 
   ngOnInit() {
   }
@@ -21,6 +22,8 @@ export class Scr1Component implements OnInit {
     },
     error => {
       console.log(error);
+    }, () => {
+      this.router.navigate(['/colleagues']);
     }
     );
   }
@@ -30,5 +33,6 @@ export class Scr1Component implements OnInit {
   logout() {
     localStorage.removeItem('token');
     console.log('Adios Amigo :)');
+    this.router.navigate(['/home']);
   }
 }

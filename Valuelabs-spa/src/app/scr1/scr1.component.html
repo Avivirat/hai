@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container" >
-      <a class="navbar-brand" href="#">chatCo</a>
+      <a class="navbar-brand" [routerLink]="['/home']">chatCo</a>
 
-      <ul class="navbar-nav mr-auto" *ngIf = "loggedIn()">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">colleagues</a>
+      <ul class="navbar-nav mr-auto" *ngIf="loggedIn()">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/colleagues']">colleagues</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">activites</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/activities']">activites</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " href="#">ChatBoX</a>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/ChatboX']">ChatBoX</a>
         </li>
       </ul>
 

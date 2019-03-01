@@ -1,17 +1,19 @@
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { ColleagueEditresolver } from './_resolver/colleague-edit-resolver';
 import { ColleagueDetailedComponent } from './colleaguesmaster/colleagueDetailed/colleagueDetailed.component';
 import { TabsModule } from 'ngx-bootstrap';
 
 import { AuthGuard } from './_guards/auth.guard';
-
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
 import {NgxGalleryModule} from 'ngx-gallery';
-
-
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { Scr1Component } from './scr1/scr1.component';
@@ -27,6 +29,7 @@ import { appRoutes } from './routes';
 import { UserService } from './_services/User.service';
 import { ColleagueDetailresolver } from './_resolver/colleague-detail-resolver';
 import { ColleagueListresolver } from './_resolver/colleague-list-resolver';
+import { ColleagueEditComponent } from './colleaguesmaster/colleague-edit/colleague-edit.component';
 
 
 export function tokenGetter() {
@@ -43,12 +46,16 @@ export function tokenGetter() {
       ActivitiesComponent,
       ChatboXComponent,
       ColleaguecardComponent,
-      ColleagueDetailedComponent
+      ColleagueDetailedComponent,
+      ColleagueEditComponent
    ],
    imports: [
       BrowserModule,
+      BrowserAnimationsModule,
       HttpClientModule,
       FormsModule,
+       // required animations module
+      ToastrModule.forRoot(),
       TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
@@ -64,10 +71,12 @@ export function tokenGetter() {
    providers: [
       AuthService,
       AuthGuard,
+      PreventUnsavedChanges,
       ErrorInterceptorProvider,
       UserService,
       ColleagueDetailresolver,
-      ColleagueListresolver
+      ColleagueListresolver,
+      ColleagueEditresolver
    ],
    bootstrap: [
       AppComponent

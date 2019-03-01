@@ -7,6 +7,7 @@ import { resolve } from 'url';
 import { observable, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+
 @Injectable()
 export class ColleagueDetailresolver implements Resolve<User> {
   constructor(private userService: UserService, private router: Router) {}

@@ -2,6 +2,9 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
 @import '../node_modules/bootswatch/dist/sketchy/bootstrap.min.css';
+#toast-container > div {
+  opacity:1;
+}
 
 .tab-panel {
   border: 1px solid #ddd;

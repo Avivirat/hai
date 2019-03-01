@@ -1,3 +1,7 @@
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { CanDeactivate } from '@angular/router';
+import { ColleagueEditresolver } from './_resolver/colleague-edit-resolver';
+import { ColleagueEditComponent } from './colleaguesmaster/colleague-edit/colleague-edit.component';
 import { ColleagueDetailedComponent } from './colleaguesmaster/colleagueDetailed/colleagueDetailed.component';
 import { AuthGuard } from './_guards/auth.guard';
 import {Routes} from '@angular/router';
@@ -17,11 +21,13 @@ export const appRoutes: Routes = [
   canActivate: [AuthGuard],
   children: [
     { path: 'colleagues', component: ColleaguesComponent, resolve: {users : ColleagueListresolver}},
+    {path: 'colleagues/edit', component: ColleagueEditComponent, resolve: {user: ColleagueEditresolver}, canDeactivate: [PreventUnsavedChanges]},
     { path: 'colleagues/:id', component: ColleagueDetailedComponent, resolve: {user: ColleagueDetailresolver}},
     { path: 'activities', component: ActivitiesComponent},
-    { path: 'ChatboX', component: ChatboXComponent}
+    { path: 'ChatboX', component: ChatboXComponent},
+    {path: '', component: HomeComponent},
   ]
   },
- // { path: '**', redirectTo: '/home', pathMatch: 'full'},
+  { path: '**', redirectTo: '/home', pathMatch: 'full'},
 
 ];

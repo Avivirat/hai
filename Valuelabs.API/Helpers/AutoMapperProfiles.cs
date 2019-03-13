@@ -20,7 +20,10 @@ namespace Valuelabs.API.Helpers
             })
             .ForMember(dest => dest.Age, opt => opt.ResolveUsing(d => d.DateOfBirth.CalculateAge()));
             CreateMap<Photo, PhotosForDetailedDto>();
-            CreateMap<UserForUpdateDto, User>().IgnoreAllSourcePropertiesWithAnInaccessibleSetter();;
+            CreateMap<UserForUpdateDto, User>().IgnoreAllSourcePropertiesWithAnInaccessibleSetter();
+            CreateMap<Photo,PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto,Photo>();
+            CreateMap<UserForRegisterDto,User>();
         }
     }
 }

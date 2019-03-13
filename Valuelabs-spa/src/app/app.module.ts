@@ -2,14 +2,14 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { ColleagueEditresolver } from './_resolver/colleague-edit-resolver';
 import { ColleagueDetailedComponent } from './colleaguesmaster/colleagueDetailed/colleagueDetailed.component';
 import { TabsModule } from 'ngx-bootstrap';
-
+import { FileUploadModule } from 'ng2-file-upload';
 import { AuthGuard } from './_guards/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {BsDropdownModule} from 'ngx-bootstrap';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -30,6 +30,8 @@ import { UserService } from './_services/User.service';
 import { ColleagueDetailresolver } from './_resolver/colleague-detail-resolver';
 import { ColleagueListresolver } from './_resolver/colleague-list-resolver';
 import { ColleagueEditComponent } from './colleaguesmaster/colleague-edit/colleague-edit.component';
+import { PhotoEditorComponent } from './colleaguesmaster/photo-editor/photo-editor.component';
+
 
 
 export function tokenGetter() {
@@ -47,19 +49,22 @@ export function tokenGetter() {
       ChatboXComponent,
       ColleaguecardComponent,
       ColleagueDetailedComponent,
-      ColleagueEditComponent
+      ColleagueEditComponent,
+      PhotoEditorComponent
    ],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
       HttpClientModule,
       FormsModule,
+      ReactiveFormsModule,
        // required animations module
       ToastrModule.forRoot(),
       TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       NgxGalleryModule,
+      FileUploadModule,
       JwtModule.forRoot({
         config: {
           tokenGetter: tokenGetter,

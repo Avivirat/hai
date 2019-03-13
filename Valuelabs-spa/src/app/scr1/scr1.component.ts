@@ -15,9 +15,11 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 })
 export class Scr1Component implements OnInit {
   model: any = {};
+  photoUrl: string;
   constructor(public authService: AuthService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl =photoUrl);
   }
   login() {
     this.authService.login(this.model).subscribe(next => {
@@ -35,7 +37,10 @@ export class Scr1Component implements OnInit {
   }
   logout() {
     localStorage.removeItem('token');
-    console.log('Adios Amigo :)');
+    localStorage.removeItem('user');
+    this.toastr.success('Adios Amigo :)');
+    this.authService.decodedToken= null;
+    this.authService.currentUser = null;
     this.router.navigate(['/home']);
   }
 }

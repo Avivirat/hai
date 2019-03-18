@@ -1,12 +1,13 @@
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { ColleagueEditresolver } from './_resolver/colleague-edit-resolver';
 import { ColleagueDetailedComponent } from './colleaguesmaster/colleagueDetailed/colleagueDetailed.component';
-import { TabsModule } from 'ngx-bootstrap';
+import { TabsModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AuthGuard } from './_guards/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -50,7 +51,8 @@ export function tokenGetter() {
       ColleaguecardComponent,
       ColleagueDetailedComponent,
       ColleagueEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      TimeAgoPipe
    ],
    imports: [
       BrowserModule,
@@ -61,8 +63,10 @@ export function tokenGetter() {
        // required animations module
       ToastrModule.forRoot(),
       TabsModule.forRoot(),
+      ButtonsModule.forRoot(),
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
+      PaginationModule.forRoot(),
       NgxGalleryModule,
       FileUploadModule,
       JwtModule.forRoot({

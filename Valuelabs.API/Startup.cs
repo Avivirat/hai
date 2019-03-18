@@ -57,6 +57,7 @@ namespace ValuelabsAPI
                 };
 
             });
+            services.AddScoped<LogUserActivity>();
             
         }
 

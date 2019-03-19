@@ -1,3 +1,4 @@
+import { Messagesresolver } from './_resolver/message.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { ColleagueEditresolver } from './_resolver/colleague-edit-resolver';
 import { ColleagueDetailedComponent } from './colleaguesmaster/colleagueDetailed/colleagueDetailed.component';
@@ -32,6 +33,7 @@ import { ColleagueDetailresolver } from './_resolver/colleague-detail-resolver';
 import { ColleagueListresolver } from './_resolver/colleague-list-resolver';
 import { ColleagueEditComponent } from './colleaguesmaster/colleague-edit/colleague-edit.component';
 import { PhotoEditorComponent } from './colleaguesmaster/photo-editor/photo-editor.component';
+import { Listresolver } from './_resolver/lists.resolver';
 
 
 
@@ -85,7 +87,9 @@ export function tokenGetter() {
       UserService,
       ColleagueDetailresolver,
       ColleagueListresolver,
-      ColleagueEditresolver
+      ColleagueEditresolver,
+      Listresolver,
+      Messagesresolver
    ],
    bootstrap: [
       AppComponent

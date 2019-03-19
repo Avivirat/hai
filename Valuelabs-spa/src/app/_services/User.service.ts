@@ -1,11 +1,11 @@
-import { Pagination } from './../_models/Pagination';
+import { Pagination, PaginationResult } from './../_models/Pagination';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
-import {PaginationResult} from '../_models/Pagination';
 import { map } from 'rxjs/operators';
+import { Message } from '../_models/message';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class UserService {
 
 constructor(private http: HttpClient) { }
 
-getUsers(page?, ItemsPerPage ?, userParams?): Observable<PaginationResult<User[]>> {
+getUsers(page?, ItemsPerPage ?, userParams?, likesParam?): Observable<PaginationResult<User[]>> {
   const paginationResult: PaginationResult<User[]> = new PaginationResult<User[]>();
 
   let params = new HttpParams();
@@ -29,6 +29,12 @@ getUsers(page?, ItemsPerPage ?, userParams?): Observable<PaginationResult<User[]
     params = params.append('maxAge', userParams.maxAge);
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
+  }
+  if(likesParam === 'Likers') {
+    params = params.append('likers', 'true');
+  }
+  if(likesParam === 'Likees') {
+    params = params.append('likees', 'true');
   }
   return this.http.get<User[]>(this.baseUrl + 'users',{observe: 'response',params})
   .pipe(
@@ -53,5 +59,27 @@ setMainPhoto(userId: number, id: number) {
 }
 DeletePhoto(userId: number, id: number) {
   return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
+}
+sendLike(id: number, recipientId: number){
+  return this.http.post(this.baseUrl + 'users/' + id + '/like/' + recipientId,{});
+}
+getMessages(id: number, page?, ItemsPerPage?, messageContainer?) {
+  const paginatedResult: PaginationResult<Message[]> = new PaginationResult<Message[]>();
+  let params = new HttpParams();
+  params = params.append('MessageContainer', messageContainer);
+  if(page != null && ItemsPerPage != null){
+    params = params.append('pageNumber',page);
+    params = params.append('pageSize', ItemsPerPage);
+  }
+
+  return this.http.get<Message[]>(this.baseUrl + 'users/'+id +'/messages', {observe: 'response', params}).pipe(
+    map(response => {
+      paginatedResult.result = response.body;
+      if(response.headers.get('Pagination') !== null) {
+        paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+      }
+      return paginatedResult;
+    })
+  )
 }
 }

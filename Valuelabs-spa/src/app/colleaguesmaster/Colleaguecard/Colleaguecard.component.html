@@ -3,7 +3,7 @@
     <img class="card-img-top" src="{{user1.photoUrl || '../../../assets/user.png'}}" alt="{{user1.knownAs}}">
     <ul class="list-inline card-icons animate text-center">
       <li class="list-inline-item"><button class="btn btn-primary" [routerLink]="['/colleagues/',user1.id]"><i class="fa fa-user"></i></button></li>
-      <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-heart"></i></button></li>
+      <li class="list-inline-item"><button class="btn btn-primary" (click)="sendLike(user1.id)"><i class="fa fa-heart"></i></button></li>
       <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-envelope"></i></button></li>
     </ul>
   </div>

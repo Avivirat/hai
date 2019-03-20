@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class AuthGuard implements CanActivate {
   constructor (private authService: AuthService, private router: Router, private toastr: ToastrService){}
   canActivate(): boolean{
-    if(this.authService.loggedIn()) {
+    if (this.authService.loggedIn()) {
     return true;
   }
   this.toastr.error('not allowed to redirect to the requested page');

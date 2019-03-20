@@ -1,0 +1,58 @@
+<div class="card">
+
+  <div class="card-body">
+    <div *ngIf="messages?.length === 0">
+      <p>No Messages yet.... Say Hello </p>
+    </div>
+
+    <ul class="chat">
+
+      <li *ngFor="let mes of messages">
+      <div *ngIf="mes.senderId == recipientId">
+        <span class="chat-img float-left">
+          <img src="{{mes.senderPhotoUrl}}" alt="{{mes.senderKnownAs}}" class="rounded-circle mr-3">
+        </span>
+        <div class="chat-body">
+          <div class="header">
+            <strong class="primary-font">{{mes.senderKnownAs}}</strong>
+            <small class="text-muted float-right">
+              <span class="fa fa-clock-o">{{mes.messageSent | timeAgo}}</span>
+            </small>
+          </div>
+          <p>{{mes.content}}</p>
+        </div>
+      </div>
+
+      <div *ngIf="mes.senderId != recipientId">
+        <span class="chat-img float-right">
+          <img src="{{mes.senderPhotoUrl}}" alt="{{mes.senderKnownAs}}" class="rounded-circle">
+        </span>
+        <div class="chat-body">
+          <div class="header">
+              <small class="text-muted">
+                  <span class="fa fa-clock-o">{{mes.messageSent | timeAgo}}</span>
+                  <span *ngIf="!mes.isRead" class="text-danger">(Not Read)</span>
+                  <span *ngIf="mes.isRead" class="text-success">(Read {{mes.dateRead | timeAgo}})</span>
+
+                </small>
+            <strong class="primary-font  float-right">{{mes.senderKnownAs}}</strong>
+
+          </div>
+          <p>{{mes.content}}</p>
+        </div>
+      </div>
+    </li>
+    </ul>
+
+  </div>
+</div>
+<div class="card-footer">
+    <form #messageForm="ngForm" (ngSubmit)="messageForm.valid && sendMessage()">
+      <div class="input-group">
+        <input type="text" [(ngModel)]="newMessage.content" name="content" required class="form-control input-sm" placeholder="send a message">
+        <div class="input-group-append">
+          <button class="btn btn-primary" [disabled]="!messageForm.valid">Send</button>
+        </div>
+       </div>
+    </form>
+  </div>

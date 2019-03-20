@@ -26,8 +26,8 @@ export class RegisterComponent implements OnInit {
     gender: new FormControl('male'),
     dateOfBirth: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
-    country: new  FormControl('',Validators.required),
-    password: new FormControl('',[Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
+    country: new  FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(10)]),
     confirmPassword: new FormControl('', Validators.required)
   }, this.passwordMatchValidator )
 
@@ -42,7 +42,7 @@ passwordMatchValidator(g: FormGroup) {
         this.authService.register(this.user).subscribe(() => {
           this.toastr.success('registration Successful \n Welcome to the world of Excitement');
         }, error => {
-          this.toastr.error("error");
+          this.toastr.error('error');
         }, () => {
           this.authService.login(this.user).subscribe(() => {
             this.router.navigate(['/colleagues']);
@@ -52,6 +52,6 @@ passwordMatchValidator(g: FormGroup) {
    }
   cancel() {
     this.cancelRegister.emit(false);
-    console.log('cancelled');
+    this.toastr.error('cancelled');
   }
 }

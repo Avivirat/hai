@@ -18,7 +18,7 @@ export class ColleaguecardComponent implements OnInit {
   }
   sendLike(id: number) {
     this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(data => {
-      this.toastr.success('You have liked: '+ this.user1.knownAs);
+      this.toastr.success('You have liked: ' + this.user1.knownAs);
     },error => {
       this.toastr.error(error);
     })

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/User.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+import { TabsetComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-colleagueDetailed',
@@ -10,7 +11,8 @@ import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gal
   styleUrls: ['./colleagueDetailed.component.css']
 })
 export class ColleagueDetailedComponent implements OnInit {
-  user : User;
+  @ViewChild('ColleagueTabs') ColleagueTabs: TabsetComponent;
+  user: User;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
@@ -20,6 +22,11 @@ export class ColleagueDetailedComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data['user'];
+    });
+
+    this.route.queryParams.subscribe(params => {
+      const selectedTab = params['tab'];
+      this.ColleagueTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
     });
 
 
@@ -37,7 +44,7 @@ export class ColleagueDetailedComponent implements OnInit {
    }
  getImages() {
    const imagesUrls = [];
-   for(let i=0; i< this.user.photos.length; i++) {
+   for(let i = 0; i < this.user.photos.length; i++) {
      imagesUrls.push({
        small: this.user.photos[i].url,
        medium: this.user.photos[i].url,
@@ -46,5 +53,8 @@ export class ColleagueDetailedComponent implements OnInit {
      });
    }
    return imagesUrls;
+ }
+ selectTab(tabId: number) {
+   this.ColleagueTabs.tabs[tabId].active = true;
  }
 }

@@ -34,6 +34,14 @@ export class ChatboXComponent implements OnInit {
       }
       );
     }
+    deletedMessage(id: number) {
+      this.userService.deleteMessage(id, this.authService.decodedToken.nameid).subscribe(() => {
+        this.messages.splice(this.messages.findIndex(m => m.id === id), 1);
+        this.toastr.success('Message has been Deleted');
+      }, error => {
+        this.toastr.error('failed to delete');
+      });
+    }
     pageChanged(event: any): void {
       this.pagination.CurrentPage = event.page;
       this.loadMessages();

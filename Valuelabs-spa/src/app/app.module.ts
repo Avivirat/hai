@@ -34,6 +34,7 @@ import { ColleagueListresolver } from './_resolver/colleague-list-resolver';
 import { ColleagueEditComponent } from './colleaguesmaster/colleague-edit/colleague-edit.component';
 import { PhotoEditorComponent } from './colleaguesmaster/photo-editor/photo-editor.component';
 import { Listresolver } from './_resolver/lists.resolver';
+import { ColleagueMessagesComponent } from './colleaguesmaster/colleague-messages/colleague-messages.component';
 
 
 
@@ -54,7 +55,8 @@ export function tokenGetter() {
       ColleagueDetailedComponent,
       ColleagueEditComponent,
       PhotoEditorComponent,
-      TimeAgoPipe
+      TimeAgoPipe,
+      ColleagueMessagesComponent
    ],
    imports: [
       BrowserModule,
